@@ -1,0 +1,16 @@
+{
+  "name": "@brianjhanson/gulp-tasks",
+  "version": "1.0.0",
+  "description": "Gulp tasks for general development",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:brianjhanson/gulp-tasks.git"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Brian Hanson <brian@brianhanson.net>",
+  "license": "ISC"
+}
