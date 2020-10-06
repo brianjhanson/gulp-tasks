@@ -2,7 +2,12 @@ const webpack = require("webpack");
 const colors = require("ansi-colors");
 const log = require("fancy-log");
 const { error, warn } = require("fancy-log");
-const webpackConfig = require("../../webpack.config.js");
+const defaultConfig = require("../webpack.config");
+const { merge } = require("webpack-merge");
+const path = require("path");
+const fs = require("fs");
+
+const userConfigPath = path.resolve(process.cwd(), "webpack.config.js");
 
 /**
  * Report webpack errors
@@ -60,8 +65,8 @@ function onBuild(done) {
 /**
  * Bundles javascript files.
  */
-module.exports = function() {
-  return function bundleScripts(done) {
-    webpack(webpackConfig).run(onBuild(done));
-  };
+module.exports = function bundleScripts(done) {
+  // eslint-disable-next-line no-console
+  console.log('this.webpackConfig', this.webpackConfig);
+  webpack(this.webpackConfig).run(onBuild(done));
 };

@@ -7,11 +7,10 @@
     "type": "git",
     "url": "git@github.com:brianjhanson/gulp-tasks.git"
   },
-  "bin": {
-    "bh-scripts": "bin/bh-scripts.js"
-  },
   "dependencies": {
     "@babel/core": "^7.11.1",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.11.0",
     "ansi-colors": "^4.1.1",
     "autoprefixer": "^9.8.6",
@@ -49,7 +48,8 @@
     "webpack": "^4.44.1",
     "webpack-dev-middleware": "^3.7.2",
     "webpack-hot-middleware": "^2.25.0",
-    "webpack-manifest-plugin": "^2.2.0"
+    "webpack-manifest-plugin": "^2.2.0",
+    "webpack-merge": "^5.1.4"
   },
   "peerDependencies": {
     "gulp": "^4.0"

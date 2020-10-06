@@ -14,7 +14,6 @@ function styles() {
 
   return gulp
     .src(`${src}/${path}/${glob}`)
-    .pipe(sourcemaps.init())
     .pipe(
       cssGlobbing({
         extensions: [".scss"]
@@ -26,7 +25,6 @@ function styles() {
       }).on("error", sass.logError)
     )
     .pipe(gulpPostcss(postcss.plugins(this.env), postcss.options))
-    .pipe(sourcemaps.write(srcMapsDest))
     .pipe(gulp.dest(`${dest}/${path}`))
     .pipe(browserSync.stream());
 }

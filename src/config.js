@@ -1,6 +1,3 @@
-// const browserSync = require("browser-sync");
-const imagemin = require("gulp-imagemin");
-
 const base = {
   src: "src",
   dest: "dist"
@@ -29,21 +26,22 @@ const styles = {
 
 const clean = {};
 
+const imagemin = require("gulp-imagemin");
 const images = {
   path: "images",
   glob: "**/*.{jgp,png,gif,svg}",
   imageMinConfig: [
-    imagemin.mozjpeg({ progressive: true }),
+    imagemin.mozjpeg({progressive: true}),
     imagemin.svgo({
       plugins: [
-        { cleanupAttrs: true },
-        { cleanupIDs: false },
-        { collapseGroups: false },
-        { mergePaths: false },
-        { moveElemsAttrsToGroup: false },
-        { moveGroupAttrsToElems: false },
-        { removeViewBox: false },
-        { removeStyleElement: true }
+        {cleanupAttrs: true},
+        {cleanupIDs: false},
+        {collapseGroups: false},
+        {mergePaths: false},
+        {moveElemsAttrsToGroup: false},
+        {moveGroupAttrsToElems: false},
+        {removeViewBox: false},
+        {removeStyleElement: true}
       ]
     })
   ]
@@ -61,6 +59,13 @@ const browserSyncOptions = {
   middleware: [],
   files: [`./templates/**/*.{html,twig}`]
 };
+
+const scripts = {
+  path: 'scripts',
+  bundles: {
+    main: ['main.js']
+  }
+}
 
 const watch = [
   {
@@ -80,6 +85,7 @@ const watch = [
 module.exports = {
   ...base,
   styles,
+  scripts,
   clean,
   images,
   copy,
