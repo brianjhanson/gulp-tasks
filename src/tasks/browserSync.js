@@ -1,19 +1,35 @@
-const browserSync = require("browser-sync");
+// const webpack = require("webpack");
+// const stripAnsi = require("strip-ansi");
+// const webpackDevMiddleware = require("webpack-dev-middleware");
+// const { webpackConfig } = require("./scripts");
 
-function configureBrowserSync(options = {}) {
-  const config = {
-    open: false,
-    notify: false,
-    ...options,
-  };
+/**
+ * Refreshes browser on file changes and syncs scroll/clicks between devices.
+ * Your site will be available at http://localhost:3000
+ */
+function browserSyncTask(cb) {
+  // const compiler = webpack(webpackConfig);
+
   /**
-   * Refreshes browser on file changes and syncs scroll/clicks between devices.
-   * Your site will be available at http://localhost:3000
+   * Reload all devices when bundle is complete
+   * or send a fullscreen error message to the browser instead
    */
-  return function browserSyncTask(cb) {
-    browserSync.init(config);
-    cb();
-  };
+  // eslint-disable-next-line consistent-return
+  // compiler.hooks.done.tap("ReloadDevices", stats => {
+  //   if (stats.hasErrors() || stats.hasWarnings()) {
+  //     return config.browserSync.instance.sockets.emit("fullscreen:message", {
+  //       title: "Webpack Error:",
+  //       body: stripAnsi(stats.toString()),
+  //       timeout: 100000
+  //     });
+  //   }
+  //   config.browserSync.instance.reload();
+  // });
+
+  const { browserSyncOptions } = this;
+
+  this.browserSync.init(null, browserSyncOptions);
+  cb();
 }
 
-module.exports = configureBrowserSync;
+module.exports = browserSyncTask;

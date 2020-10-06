@@ -7,20 +7,56 @@
     "type": "git",
     "url": "git@github.com:brianjhanson/gulp-tasks.git"
   },
+  "bin": {
+    "bh-scripts": "bin/bh-scripts.js"
+  },
   "dependencies": {
-    "autoprefixer": "^9.8.4",
-    "browser-sync": "^2.26.7",
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "ansi-colors": "^4.1.1",
+    "autoprefixer": "^9.8.6",
+    "babel-eslint": "^8.2.5",
+    "babel-loader": "^8.1.0",
+    "browser-sync": "^2.26.12",
     "cssnano": "^4.1.10",
+    "dart-sass": "^1.25.0",
     "del": "^5.1.0",
-    "gulp": "^4.0.2",
+    "dotenv": "^6.2.0",
+    "eslint": "^5.7.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-react": "^7.9.1",
+    "fancy-log": "^1.3.3",
+    "gulp-css-globbing": "^0.2.2",
+    "gulp-if": "^3.0.0",
+    "gulp-imagemin": "^7.1.0",
     "gulp-postcss": "^8.0.0",
+    "gulp-replace": "^1.0.0",
+    "gulp-rev": "^9.0.0",
     "gulp-sass": "^4.1.0",
     "gulp-sourcemaps": "^2.6.5",
+    "lodash.merge": "^4.6.2",
     "node-sass": "^4.14.1",
     "postcss-import": "^12.0.1",
-    "prettier": "^2.0.5"
+    "prettier": "^1.19.1",
+    "strip-ansi": "^6.0.0",
+    "tailwindcss": "^1.6.2",
+    "terser-webpack-plugin": "^4.1.0",
+    "undertaker-registry": "^1.0.1",
+    "webpack": "^4.44.1",
+    "webpack-dev-middleware": "^3.7.2",
+    "webpack-hot-middleware": "^2.25.0",
+    "webpack-manifest-plugin": "^2.2.0"
   },
-  "devDependencies": {},
+  "peerDependencies": {
+    "gulp": "^4.0"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

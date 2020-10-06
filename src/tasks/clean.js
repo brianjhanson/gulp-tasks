@@ -1,12 +1,9 @@
 const del = require("del");
 
-/**
- * Clears all distribution directories
- */
-function configureClean(paths, options = {}) {
-  return function clean() {
-    return del(paths);
-  };
+function clean() {
+  const { dest } = this;
+
+  return del(dest);
 }
 
-module.exports = configureClean;
+module.exports = clean;

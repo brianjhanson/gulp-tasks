@@ -1,41 +1,34 @@
 const gulp = require("gulp");
-const browserSync = require('browser-sync');
+const cssGlobbing = require("gulp-css-globbing");
 const sass = require("gulp-sass");
-const autoprefixer = require("autoprefixer");
-const postcss = require("gulp-postcss");
-const atImport = require("postcss-import");
+const gulpPostcss = require("gulp-postcss");
 const sourcemaps = require("gulp-sourcemaps");
-const cssnano = require("cssnano");
-const path = require("path");
 
-function configureStyles({ src, dest, options = {} }) {
-  console.log("src", src); // eslint-disable-line
-  const config = {
-    postCssPlugins: [autoprefixer(), atImport()],
-    env: "development",
-    ...options,
-  };
+sass.compiler = require("dart-sass");
 
-  return function styles() {
-    const postCssPlugins = [autoprefixer()];
+function styles() {
+  const { src, dest, styles, browserSync } = this;
+  const { path, glob, postcss } = styles;
 
-    if (config.env === "production") {
-      postCssPlugins.push(cssnano());
-    }
+  const srcMapsDest = process.env.BUILD_ENV === "production" ? "." : false;
 
-    return gulp
-      .src(src)
-      .pipe(sourcemaps.init())
-      .pipe(
-        sass({
-          includePaths: path.resolve("node_modules"),
-        }).on("error", sass.logError)
-      )
-      .pipe(postcss(postCssPlugins))
-      .pipe(sourcemaps.write())
-      .pipe(gulp.dest(dest))
-      .pipe(browserSync.reload({stream: true}));
-  };
+  return gulp
+    .src(`${src}/${path}/${glob}`)
+    .pipe(sourcemaps.init())
+    .pipe(
+      cssGlobbing({
+        extensions: [".scss"]
+      })
+    )
+    .pipe(
+      sass({
+        includePaths: ["node_modules"]
+      }).on("error", sass.logError)
+    )
+    .pipe(gulpPostcss(postcss.plugins(this.env), postcss.options))
+    .pipe(sourcemaps.write(srcMapsDest))
+    .pipe(gulp.dest(`${dest}/${path}`))
+    .pipe(browserSync.stream());
 }
 
-module.exports = configureStyles;
+module.exports = styles;
