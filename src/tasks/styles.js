@@ -10,10 +10,9 @@ function styles() {
   const { src, dest, styles, browserSync } = this;
   const { path, glob, postcss } = styles;
 
-  const srcMapsDest = process.env.BUILD_ENV === "production" ? "." : false;
-
   return gulp
     .src(`${src}/${path}/${glob}`)
+    .pipe(sourcemaps.init())
     .pipe(
       cssGlobbing({
         extensions: [".scss"]
@@ -25,6 +24,7 @@ function styles() {
       }).on("error", sass.logError)
     )
     .pipe(gulpPostcss(postcss.plugins(this.env), postcss.options))
+    .pipe(sourcemaps.write("."))
     .pipe(gulp.dest(`${dest}/${path}`))
     .pipe(browserSync.stream());
 }

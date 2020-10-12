@@ -1,6 +1,7 @@
 const base = {
   src: "src",
-  dest: "dist"
+  dest: "dist",
+  debug: false
 };
 
 const styles = {

@@ -7,7 +7,7 @@ module.exports = function(config) {
   const { scripts } = config;
   const webpackPlugins = [];
 
-  const isDev = config.env !== 'production'
+  const isDev = config.env !== "production";
   if (isDev) {
     webpackPlugins.push(new webpack.HotModuleReplacementPlugin());
   }
@@ -19,7 +19,7 @@ module.exports = function(config) {
     output: {
       filename: "[name].js",
       path: path.resolve(config.dest, scripts.path),
-      publicPath: "/dist"
+      publicPath: config.dest
     },
     optimization: {
       minimize: !isDev,

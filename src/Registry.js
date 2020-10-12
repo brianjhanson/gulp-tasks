@@ -35,22 +35,18 @@ class CommonRegistry extends DefaultRegistry {
 
   init(taker) {
     const { task, series, parallel } = taker;
+    const copyTasks = createCopyTasks(taker).bind(this);
 
+    // Standalone tasks
     task("clean", clean);
     task("styles", styles);
     task("images", images);
     task("browserSync", browserSyncTask);
     task("scripts", bundleScripts);
-
-    task("setDev", function(cb) {
-      console.log("\n>>>> Running with env: %s\n", this.env);
-      cb();
-    });
-
-    const copyTasks = createCopyTasks(taker).bind(this);
     task("copy", parallel(...copyTasks()));
 
-    task("watchAll", function(cb) {
+    // Watch is kind of special
+    task("watch", function(cb) {
       this.watch.map(watchSet => {
         taker.watch(
           `${this.src}/${watchSet.globs}`,
@@ -60,15 +56,10 @@ class CommonRegistry extends DefaultRegistry {
       cb();
     });
 
-    task(
-      "default",
-      series(
-        "setDev",
-        "clean",
-        parallel("styles", "images", "copy", "scripts"),
-        parallel("browserSync", "watchAll")
-      )
-    );
+    // Collection Tasks
+    task("core", parallel("styles", "images", "copy", "scripts"));
+    task("serve", parallel("browserSync", "watch"));
+    task("default", series("clean", "core", "serve"));
   }
 
   set(name, fn) {

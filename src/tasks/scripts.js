@@ -2,12 +2,6 @@ const webpack = require("webpack");
 const colors = require("ansi-colors");
 const log = require("fancy-log");
 const { error, warn } = require("fancy-log");
-const defaultConfig = require("../webpack.config");
-const { merge } = require("webpack-merge");
-const path = require("path");
-const fs = require("fs");
-
-const userConfigPath = path.resolve(process.cwd(), "webpack.config.js");
 
 /**
  * Report webpack errors
@@ -46,18 +40,14 @@ function onBuild(done) {
 
     if (err) {
       error(err);
-      if (done) {
-        done();
-      }
+      done();
     } else {
       info.assets.forEach(asset => {
         log("Webpack: output ", colors.green(asset.name));
       });
       log("Webpack: ", colors.blue(`finished ${info.hash}`));
 
-      if (done) {
-        done();
-      }
+      done();
     }
   };
 }
@@ -66,7 +56,5 @@ function onBuild(done) {
  * Bundles javascript files.
  */
 module.exports = function bundleScripts(done) {
-  // eslint-disable-next-line no-console
-  console.log('this.webpackConfig', this.webpackConfig);
   webpack(this.webpackConfig).run(onBuild(done));
 };

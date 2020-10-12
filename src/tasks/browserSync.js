@@ -15,6 +15,10 @@ function browserSyncTask(cb) {
    */
   // eslint-disable-next-line consistent-return
   compiler.hooks.done.tap("ReloadDevices", stats => {
+    if (stats.hasErrors()) {
+      console.error(stats.err);
+    }
+
     if (stats.hasErrors() || stats.hasWarnings()) {
       return this.browserSync.sockets.emit("fullscreen:message", {
         title: "Webpack Error:",
@@ -22,18 +26,20 @@ function browserSyncTask(cb) {
         timeout: 100000
       });
     }
-    this.browserSync.instance.reload();
+    this.browserSync.reload();
   });
 
   const { browserSyncOptions } = this;
 
-  browserSyncOptions.middleware = [
-    webpackDevMiddleware(compiler, {
-      publicPath: `${this.webpackConfig.output.publicPath}/scripts`,
-      stats: { colors: true },
-      writeToDisk: true
-    })
-  ];
+  if (browserSyncOptions.middleware) {
+    browserSyncOptions.middleware.push(
+      webpackDevMiddleware(compiler, {
+        publicPath: `${this.webpackConfig.output.publicPath}/scripts`,
+        stats: { colors: true },
+        writeToDisk: true
+      })
+    );
+  }
 
   this.browserSync.init(null, browserSyncOptions);
   cb();
