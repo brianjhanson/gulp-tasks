@@ -31,6 +31,7 @@ gulp.registry(
   })
 );
 
+// You can use any of the registered tasks just like you defined them
 gulp.task('my-task', gulp.series('clean', 'styles', 'scripts'));
 ```
 
@@ -41,33 +42,39 @@ You can configure all the tasks by passing an object in to the `new Registry` co
 ## Standalone Tasks
 
 ### Browser Sync
+Starts a [Browsersync](https://www.browsersync.io/) server for live reloading as things change.
 
 ### Clean
+Deletes all items from designated folders.
 
 ### Images
+Compresses images with [imagemin](https://github.com/imagemin/imagemin).
 
 ### Rev
 Adds a hash to then end of files so you can cache them aggressively but make sure new assets are loaded when you want them to be.
 
 ### Scripts
+Bundles scripts with [webpack](https://webpack.js.org/)
 
 ### Styles
+Compiles styles with sass. 
 
 ### Templates
+Copies templates from one folder to another.
 
 ### Watch
+Watch for designated file changes and run tasks based on those changes.
 
 ## Task Collections
 
-## Core
+### Core
+Run `styles`, `images`, `copy` and `scripts` in parallel. 
 
-## Serve
+### Serve
+Run `browserSync` and `watch` in parallel.
 
-## Default
+### Default
+Run `clean` then `core` and then `serve`
 
-## Build
-
-
-## Contributing
-
-## Development notes
+### Build
+Run `clean`, `core` and `rev`.
