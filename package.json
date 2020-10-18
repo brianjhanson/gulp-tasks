@@ -1,11 +1,11 @@
 {
   "name": "@brianjhanson/gulp-tasks",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "Gulp tasks for general development",
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:brianjhanson/gulp-tasks.git"
+    "url": "https://github.com/brianjhanson/gulp-tasks.git"
   },
   "dependencies": {
     "@babel/core": "^7.11.1",
@@ -55,10 +55,12 @@
     "gulp": "^4.0"
   },
   "devDependencies": {
-    "gulp": "^4.0.2"
+    "gulp": "^4.0.2",
+    "semantic-release": "^17.2.1"
   },
   "scripts": {
     "example": "gulp --gulpfile ./example/gulpfile.js",
+    "semantic-release": "semantic-release"
   },
   "author": "Brian Hanson <brian@brianhanson.net>",
   "license": "ISC"
