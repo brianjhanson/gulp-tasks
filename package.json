@@ -58,7 +58,7 @@
     "gulp": "^4.0.2"
   },
   "scripts": {
-    "example": "gulp --gulpfile ./example/gulpfile.js",
+    "example": "gulp --gulpfile ./example/gulpfile.js"
   },
   "author": "Brian Hanson <brian@brianhanson.net>",
   "license": "ISC"
