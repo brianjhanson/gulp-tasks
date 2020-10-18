@@ -14,6 +14,7 @@ const createCopyTasks = require("./tasks/copy");
 const browserSync = require("browser-sync");
 const browserSyncTask = require("./tasks/browserSync");
 const bundleScripts = require("./tasks/scripts");
+const watch = require("./tasks/watch");
 
 class CommonRegistry extends DefaultRegistry {
   constructor(opts) {
@@ -23,8 +24,9 @@ class CommonRegistry extends DefaultRegistry {
 
     // Attach our full config to the class
     this.config = config;
-    this.env = opts.env || process.env.ENVIRONMENT || process.env.NODE_ENV;
-    this.browserSync = browserSync.create();
+    this.env = config.env || process.env.ENVIRONMENT || process.env.NODE_ENV;
+    this.browserSync = config.browserSync ? browserSync.create() : false;
+
     const userWebpackConfig = opts.webpackConfig || {};
     const defaultWebpackConfig = require("./webpack.config");
     this.webpackConfig = wpMerge(
@@ -46,15 +48,7 @@ class CommonRegistry extends DefaultRegistry {
     task("copy", parallel(...copyTasks()));
 
     // Watch is kind of special
-    task("watch", function(cb) {
-      this.watch.map(watchSet => {
-        taker.watch(
-          `${this.src}/${watchSet.globs}`,
-          taker.series(watchSet.task)
-        );
-      });
-      cb();
-    });
+    task("watch", watch);
 
     // Collection Tasks
     task("core", parallel("styles", "images", "copy", "scripts"));

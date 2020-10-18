@@ -1,7 +1,8 @@
 const base = {
   src: "src",
   dest: "dist",
-  debug: false
+  debug: false,
+  browserSync: true
 };
 
 const styles = {
@@ -32,17 +33,17 @@ const images = {
   path: "images",
   glob: "**/*.{jgp,png,gif,svg}",
   imageMinConfig: [
-    imagemin.mozjpeg({progressive: true}),
+    imagemin.mozjpeg({ progressive: true }),
     imagemin.svgo({
       plugins: [
-        {cleanupAttrs: true},
-        {cleanupIDs: false},
-        {collapseGroups: false},
-        {mergePaths: false},
-        {moveElemsAttrsToGroup: false},
-        {moveGroupAttrsToElems: false},
-        {removeViewBox: false},
-        {removeStyleElement: true}
+        { cleanupAttrs: true },
+        { cleanupIDs: false },
+        { collapseGroups: false },
+        { mergePaths: false },
+        { moveElemsAttrsToGroup: false },
+        { moveGroupAttrsToElems: false },
+        { removeViewBox: false },
+        { removeStyleElement: true }
       ]
     })
   ]
@@ -62,11 +63,11 @@ const browserSyncOptions = {
 };
 
 const scripts = {
-  path: 'scripts',
+  path: "scripts",
   bundles: {
-    main: ['main.js']
+    main: ["main.js"]
   }
-}
+};
 
 const watch = [
   {
